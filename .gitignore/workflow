@@ -1,0 +1,29 @@
+name: Mackolik Cache Fetcher
+
+on:
+  schedule:
+    - cron: '1 21 * * *'   # 00:01 TR (UTC+3) — günlük ana çekim
+    - cron: '*/15 * * * *' # Her 15 dakikada bir — gün içi güncel tutmak için
+  workflow_dispatch:        # Elle tetikleme
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch@2 @supabase/supabase-js
+
+      - name: Fetch & save to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: node fetch.js
