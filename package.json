@@ -1,0 +1,13 @@
+{
+  "name": "mackolik-fetcher",
+  "version": "1.0.0",
+  "description": "Mackolik vd cache fetcher — GitHub Actions",
+  "main": "fetch.js",
+  "scripts": {
+    "start": "node fetch.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "node-fetch": "^2.7.0"
+  }
+}
